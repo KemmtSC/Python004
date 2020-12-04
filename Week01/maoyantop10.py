@@ -1,6 +1,8 @@
 # 爬取猫眼电影的前 10 个电影名称、电影类型和上映时间
 import requests
 import lxml.etree
+import pandas as pd
+from bs4 import BeautifulSoup as bs
 
 
 # 爬取页面详细信息
@@ -20,8 +22,7 @@ response = requests.get(url, headers=headers)
 selector = lxml.etree.HTML(response.text)
 #print(response.text)
 # 电影名称
-film_name = selector.xpath(
-    '//*[@id="app"]/div/div[2]/div[2]/dl/dd[1]/div[2]/a/text()')
+film_name = selector.xpath('//*[@id="app"]/div/div[2]/div[2]/dl/dd[1]/div[2]/a/text()')
 
 print(f'电影名称: {film_name}')
 
@@ -36,7 +37,7 @@ print(f'电影类型：{film_tag}')
 mylist = [film_name, plan_date, film_tag]
 
 
-import pandas as pd
+
 
 movie1 = pd.DataFrame(data = mylist)
 
